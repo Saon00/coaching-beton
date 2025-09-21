@@ -1,3 +1,4 @@
+import 'package:coaching_beton/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,15 +17,14 @@ class MainApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child){
-        return GetMaterialApp(
+      builder: (_, child) {
+        return GetMaterialApp.router(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            textTheme: GoogleFonts.poppinsTextTheme(),
-          ),
+          theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+          routerDelegate: AppRoutes().route.routerDelegate,
+          routeInformationParser: AppRoutes().route.routeInformationParser,
         );
-    },
-
+      },
     );
   }
 }
