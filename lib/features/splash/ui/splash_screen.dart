@@ -1,3 +1,4 @@
+import 'package:coaching_beton/core/global_widgets/bg_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -5,6 +6,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return BGScreen(widget: Center(child: Text('data')));
   }
 }

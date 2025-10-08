@@ -1,11 +1,11 @@
 import 'package:coaching_beton/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -18,11 +18,12 @@ class MainApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return GetMaterialApp.router(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
-          routerDelegate: AppRoutes().route.routerDelegate,
-          routeInformationParser: AppRoutes().route.routeInformationParser,
+          routerDelegate: AppRoutes.router.routerDelegate,
+          routeInformationParser: AppRoutes.router.routeInformationParser,
+          routeInformationProvider: AppRoutes.router.routeInformationProvider,
         );
       },
     );
