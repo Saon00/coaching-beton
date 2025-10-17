@@ -1,8 +1,8 @@
-import 'package:hive_flutter/adapters.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive/hive.dart';
+// import 'hive';
 
-class HiveManager {
-  static Future<void> init() async {
-    await Hive.initFlutter();
-  }
-}
+// class HiveManager {
+//   static Future<void> init() async {
+//     await Hive.initFlutter();
+//   }
+// }

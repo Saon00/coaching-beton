@@ -1,6 +1,6 @@
 import 'package:coaching_beton/core/hive/hive_boxes.dart';
 import 'package:coaching_beton/settings/app_settings.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive/hive.dart';
 
 class AppSettingsRepositoryImp implements AppSettingsRepository {
   @override
