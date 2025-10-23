@@ -5,46 +5,89 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(splashControllerProvider.notifier).startApp(context);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, _) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          ref.read(splashController).initApp(context);
-        });
+    final splashState = ref.watch(splashControllerProvider);
 
-        return BGScreen(
-          widget: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // title
-              Text(
-                'COACHING ER BETON',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.primaryColor,
-                  fontSize: 50.sp,
-                  fontWeight: FontWeight.bold,
+    return BGScreen(
+      widget: SafeArea(
+        child: Column(
+          children: [
+            // Centered content
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'COACHING ER BETON',
+                      style: TextStyle(
+                        fontSize: 50.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20.h),
+                    Text(
+                      'Smart Tuition. Simple Tracking.',
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.greyColor70,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
+            ),
 
-              // subtitle
-              Text(
-                'Smart Tuition. Simple Tracking.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.greyColor70,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+            // Bottom loading
+            Padding(
+              padding: EdgeInsets.only(bottom: 40.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '${splashState.progress}%',
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.greyColor70,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    'LOADING',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.greyColor70,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

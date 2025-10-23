@@ -1,20 +1,33 @@
+import 'package:coaching_beton/features/onboarding/model/splash_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
-final splashController = Provider<SplashController>(
-  (ref) => SplashController(ref),
-);
+final splashControllerProvider =
+    StateNotifierProvider<SplashController, SplashState>(
+      (ref) => SplashController(ref),
+    );
 
-class SplashController {
+class SplashController extends StateNotifier<SplashState> {
   final Ref ref;
-  SplashController(this.ref);
 
-  Future<void> initApp(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 2));
-    // ignore: use_build_context_synchronously
-    GoRouter.of(context).go('/onboarding1');
+  SplashController(this.ref) : super(SplashState());
+
+  Future<void> startApp(BuildContext context) async {
+    state = state.copyWith(isLoading: true);
+
+    const totalSteps = 100;
+    const delay = Duration(milliseconds: 30);
+
+    for (int i = 1; i <= totalSteps; i++) {
+      await Future.delayed(delay);
+      state = state.copyWith(progress: i);
+    }
+
+    state = state.copyWith(isLoading: false);
+
+    if (context.mounted) {
+      // GoRouter.of(context).go('/onboarding1');
+    }
   }
 }
-
-
